@@ -1,0 +1,11 @@
+id,Name,enabled,stepName,action,selector,data,expected
+1,Validate login for valid credentials,TRUE,Launch Application,navigate,,https://qa.trsthealth.com/,
+,,,Enter UserName,type,//input[@name='userName'],ranjit_admin,
+,,,Enter Password,type,//input[@name='password'],Ranjit@123,
+,,,Click on Login Button,click,//button[@type='submit'], ,
+,,,Validate if Dashboard is Displayed,chkElementIsPresent,,1,
+2,Validate login for invalid credentials,TRUE,Launch Application,navigate,,https://qa.trsthealth.com/,
+,,,Enter UserName,type,//input[@name='userName'],ranjit_admin,
+,,,Enter Password,type,//input[@name='password'],Ranjit@1234,
+,,,Click on Login Button,click,//button[@type='submit'], ,
+,,,Validate if Dashboard is Displayed,chkElementIsPresent,,0,
