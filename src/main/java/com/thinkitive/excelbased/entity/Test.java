@@ -1,6 +1,5 @@
 package com.thinkitive.excelbased.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;

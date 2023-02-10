@@ -2,6 +2,8 @@ package com.thinkitive.excelbased;
 
 import com.thinkitive.excelbased.entity.Step;
 import com.thinkitive.excelbased.entity.Test;
+import com.thinkitive.excelbased.helper.Actions;
+import com.thinkitive.excelbased.helper.DriverManger;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,11 +15,22 @@ public class Runner {
     public static void main(String[] args) throws IOException {
         List<Test> tests = parseFile("./testSuite.csv");
         for (Test test : tests) {
+            System.out.println("Starting execution of test: " + test.getName());
+            boolean testResult = true;
+            DriverManger.initDriver();
             List<Step> steps = test.getSteps();
             for (Step step : steps) {
-
+                System.out.println("\tExecuting step:" + step.getStepName());
+                Actions actions = Actions.valueOf(step.getAction().toUpperCase());
+                if(!actions.perform(step)){
+                    testResult = false;
+                    System.out.println("\t### test Failed in step" + step.getStepName());
+                    break;
+                }
             }
+            System.out.println("test execution completed with result " + (testResult?"Pass":"Failed"));
         }
+        DriverManger.terminateTest();
     }
 
     private static List<Test> parseFile(String filePath) throws IOException {
@@ -26,10 +39,11 @@ public class Runner {
         int i=0;
         Test test = null;
         for (String line : Lines) {
-            if(i++==0){
+            System.out.println("scanning lin number " + i);
+            if(i++==0 || line.trim().isEmpty()){
                 continue;
             }
-            String[] cols = line.split(",");
+            String[] cols = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)",-1);
             if(!cols[0].isBlank()){
                 if(i>2) {
                     returnList.add(test);

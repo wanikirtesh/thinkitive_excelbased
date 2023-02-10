@@ -16,4 +16,7 @@ public class Step {
             this.expected = Boolean.parseBoolean(expected);
         }
     }
+    public String getSelector(){
+        return selector.replace("\"","");
+    }
 }
