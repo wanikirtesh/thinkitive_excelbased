@@ -4,13 +4,14 @@ import com.thinkitive.excelbased.entity.Step;
 import com.thinkitive.excelbased.entity.Test;
 import com.thinkitive.excelbased.helper.Actions;
 import com.thinkitive.excelbased.helper.DriverManger;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-
+@Log4j2 // adding lombork logging annotation
 public class Runner {
     public static void main(String[] args) throws IOException {
         List<Test> tests = parseFile("./testSuite.csv");
