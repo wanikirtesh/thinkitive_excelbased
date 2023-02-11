@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+@Log4j2
 public class Runner {
     public static void main(String[] args) throws IOException {
         List<Test> tests = parseFile("./testSuite.csv");
