@@ -16,7 +16,7 @@ public class Runner {
     public static void main(String[] args) throws IOException {
         List<Test> tests = parseFile("./testSuite.csv");
         for (Test test : tests) {
-            System.out.println("Starting execution of test: " + test.getName());
+            log.info("Starting execution of test: " + test.getName());
             boolean testResult = true;
             DriverManger.initDriver();
             List<Step> steps = test.getSteps();
@@ -25,11 +25,11 @@ public class Runner {
                 Actions actions = Actions.valueOf(step.getAction().toUpperCase());
                 if(!actions.perform(step)){
                     testResult = false;
-                    System.out.println("\t### test Failed in step" + step.getStepName());
+                    log.info("\t### test Failed in step" + step.getStepName());
                     break;
                 }
             }
-            System.out.println("test execution completed with result " + (testResult?"Pass":"Failed"));
+            log.info("test execution completed with result " + (testResult?"Pass":"Failed"));
         }
         DriverManger.terminateTest();
     }
@@ -40,7 +40,7 @@ public class Runner {
         int i=0;
         Test test = null;
         for (String line : Lines) {
-            System.out.println("scanning lin number " + i);
+            log.debug("scanning lin number " + i);
             if(i++==0 || line.trim().isEmpty()){
                 continue;
             }
